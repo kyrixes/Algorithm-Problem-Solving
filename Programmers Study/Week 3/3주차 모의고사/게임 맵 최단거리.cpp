@@ -27,15 +27,12 @@ int solution (vector<vector<int>> maps) {
             int nextX = x + nX[i];
             int nextY = y + nY[i];
             
-            // 범위를 벗어난 경우
-            if (nextX < 0 || nextY < 0 || nextX >= n || nextY >= m)
-                continue;
-            
-            // 아직 방문하지 않은 칸이라면
-            if (!visited[nextX][nextY] && maps[nextX][nextY] == 1) {
-                dist[nextX][nextY] = dist[x][y] + 1;
-                visited[nextX][nextY] = true;
-                q.push(make_pair(nextX, nextY));
+            if (nextX >= 0 && nextY >= 0 && nextX < n && nextY < m) {
+                if (!visited[nextX][nextY] && maps[nextX][nextY] == 1) {
+                    dist[nextX][nextY] = dist[x][y] + 1;
+                    visited[nextX][nextY] = true;
+                    q.push(make_pair(nextX, nextY));
+                }
             }
         }
     }
