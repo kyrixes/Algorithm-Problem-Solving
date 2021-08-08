@@ -1,8 +1,7 @@
 #include <vector>
-
 using namespace std;
 
-vector<int> solution (vector<vector<int>> v) {
+vector<int> solution(vector<vector<int> > v) {
     vector<int> answer = {0, 0};
 
     for (int i = 0; i < 3; i++) {

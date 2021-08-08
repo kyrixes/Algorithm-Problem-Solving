@@ -1,33 +1,19 @@
-#include <vector>
-#include <algorithm>
+#include <bitset>
 
-using namespace std;
-
-vector<int> solution(vector<int> answers) {
-    
-    vector<vector<int>> patterns {
-        {1, 2, 3, 4, 5},
-        {2, 1, 2, 3, 2, 4, 2, 5},
-        {3, 3, 1, 1, 2, 2, 4, 4, 5, 5}
-    };
-
-    vector<int> scores(patterns.size(), 0);
-
-    for (int i = 0; i < answers.size(); i++) {
-        for (int j = 0; j < patterns.size(); j++) {
-            if (answers[i] == patterns[j][i % patterns[j].size()])
-                scores[j]++;
-        }
+int count(int n) {
+    int bits = 0;
+    while (n) {
+        bits += (n & 1);
+        n >>= 1;
     }
     
-    int score_max = *max_element(scores.begin(), scores.end());
+    return bits;
+}
+
+int solution(int n) {
+    int bits = count(n);
     
-    vector<int> answer;
-    for (int i = 0; i < scores.size(); i++) {
-        if (score_max <= scores[i]) {
-            answer.push_back(i + 1);
-        }
-    }
+    while (bits != count(++n));
     
-    return answer;
+    return n;
 }

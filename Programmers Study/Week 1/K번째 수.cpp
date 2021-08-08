@@ -1,52 +1,16 @@
-#include <string>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
-bool check (string p) {
-    int prechk = 0;
+vector<int> solution(vector<int> array, vector<vector<int>> commands) {
+    vector<int> answer;
     
-    for (int i = 0; i < p.length(); i++) {
-        if (p[i] == '(') {
-            prechk++;
-        }
-        else {
-            prechk--;
-            if (prechk < 0) {
-                return false;
-            }
-        }
+    for (const vector<int>& command : commands) {
+        vector<int> sub_array(array.begin() + command[0] - 1, array.begin() + command[1]);
+        sort(sub_array.begin(), sub_array.end());
+        answer.push_back(sub_array[command[2] - 1]);
     }
     
-    return true;
-}
-
-string solution (string p) {
-    if (p == "") return "";
-    
-    string u, v;
-    
-    int left = 0; int right = 0;
-    
-    for (int i = 0; i < p.length(); i++) {
-        if (p[i] == '(')
-            left++;
-        else
-            right++;
-
-        if (left == right) {
-            u = p.substr(0, i + 1);
-            v = p.substr(i + 1);
-            break;
-        }
-    }
-    
-    if (check(u))
-        return u + solution(v);
-    
-    string temp = "(" + solution(v) + ")";
-    
-    for (int i = 1; i < u.length() - 1; i++)
-        temp += (u[i] == '(') ? ')' : '(';
-    
-    return temp;
+    return answer;
 }
